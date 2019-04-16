@@ -81,7 +81,7 @@ var couchbase = require('couchbase')
       }
       var step = 100.0 / percentage;
 
-      if(step == 0) {
+      if(step < 1) {
         return res.send("INVALID STEP: " + percentage + "%");
       }
 
