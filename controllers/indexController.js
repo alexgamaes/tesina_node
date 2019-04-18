@@ -1,4 +1,8 @@
 
+function getRandomString() {
+  return  (Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)).substring(0, 15);
+}
+
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
@@ -14,7 +18,8 @@ exports.create_database = function(req, res) {
     bucket.manager().createPrimaryIndex(function() {
       for(let i = 0; i < req.params.docs_number; i++) {
         bucket.upsert("id" + i, {
-          'v': getRandomInt(10000000) + 1
+          'v': getRandomInt(10000000) + 1,
+          'n': getRandomString()
         },
         function (err, result) {
           console.log(i);
@@ -88,7 +93,8 @@ var couchbase = require('couchbase')
 
       for(let i = 0.0; Math.round(i) < docs_number; i += step) {
         bucket.replace("id" + Math.round(i), {
-          'v': getRandomInt(10000000) + 1
+          'v': getRandomInt(10000000) + 1,
+          'n': getRandomString()
         }, {},
         function (err, result) {
           console.log("change in: " + "id" + Math.round(i));
