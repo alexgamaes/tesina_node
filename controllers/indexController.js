@@ -44,15 +44,15 @@ exports.view_database = function(req, res) {
   query = N1qlQuery.fromString('SELECT * from staging WHERE v IS NOT MISSING');
   bucket.query(query, function(err, rows, meta) {
 	console.log(err);
-        var s = "Data(" + rows.length + "): " + JSON.stringify(rows);
+        var s = "";//"Data(" + rows.length + "): " + JSON.stringify(rows);
         var n = 0;
 
         for(row in rows) {
-          console.log(rows[row].staging.v);
+          //console.log(rows[row].staging.v);
           n = (n + rows[row].staging.v) % 1000000007;
         }
 
-        s = '<p>Checksum: ' + n + '</p><p>' + s + '</p>';
+        s = "" + n;//'<p>Checksum: ' + n + '</p><p>' + s + '</p>';
 
 	       res.send(s);
     });
@@ -120,3 +120,4 @@ exports.delete_database = function(req, res) {
     }
 });
 };
+
