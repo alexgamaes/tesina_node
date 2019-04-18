@@ -11,7 +11,7 @@ exports.create_database = function(req, res) {
     var bucket = cluster.openBucket('staging');
 
     bucket.operationTimeout=500*1000;
-
+    bucket.manager().createPrimaryIndex(function() {
       for(let i = 0; i < req.params.docs_number; i++) {
         bucket.upsert("id" + i, {
           'v': getRandomInt(10000000) + 1
@@ -29,6 +29,7 @@ exports.create_database = function(req, res) {
           var z = j + 4;
         }
       }
+    });
 };
 
 
